@@ -83,7 +83,9 @@ EOF
         @logger.notify "Creating transient domain ruby-libvirt-tester"
         file.write(new_dom_xml)
         file.close
+        @logger.notify "Running `virsh define #{file.path}`"
         `virsh define #{file.path}`
+        @logger.notify "Running `virsh start #{host['tempname']}`"
         `virsh start #{host['tempname']}`
         sleep(30)
         file.delete
